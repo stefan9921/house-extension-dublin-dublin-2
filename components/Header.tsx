@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SERVICES, AREAS } from "@/lib/site";
 
 type HeaderProps = {
   active?: "home" | "services" | "areas" | "about" | "faq" | "contact";
@@ -24,6 +25,58 @@ export default function Header({ active = "home" }: HeaderProps) {
     );
   };
 
+  const navItemWithDropdown = (
+    label: string,
+    href: string,
+    key: HeaderProps["active"],
+    items: Array<{ slug: string; name: string }>,
+    basePath: string,
+  ) => {
+    const isActive = active === key;
+    const baseClass =
+      "transition-all hover:bg-opacity-80 transition-colors hover:text-[#A82323] duration-300 inline-flex items-center gap-1";
+    return (
+      <div key={key} className="relative group">
+        <Link
+          href={href}
+          className={
+            isActive
+              ? `text-[#A82323] border-b-2 border-[#A82323] pb-1 ${baseClass}`
+              : `text-slate-600 ${baseClass}`
+          }
+        >
+          {label}
+          <span
+            className="material-symbols-outlined text-base transition-transform duration-300 group-hover:rotate-180"
+            aria-hidden="true"
+          >
+            expand_more
+          </span>
+        </Link>
+        <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-200 z-50">
+          <div className="min-w-[240px] glass-nav border border-surface-container-low rounded-lg shadow-[0px_20px_40px_rgba(27,27,27,0.12)] py-2">
+            <Link
+              href={href}
+              className="block px-4 py-2 text-sm font-semibold text-[#A82323] hover:bg-[#A82323]/5 transition-colors"
+            >
+              All {label}
+            </Link>
+            <div className="my-1 border-t border-surface-container-low" />
+            {items.map((item) => (
+              <Link
+                key={item.slug}
+                href={`${basePath}/${item.slug}`}
+                className="block px-4 py-2 text-sm text-slate-600 hover:text-[#A82323] hover:bg-[#A82323]/5 transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       {/* Desktop Sticky Header */}
@@ -45,8 +98,8 @@ export default function Header({ active = "home" }: HeaderProps) {
           </div>
           <nav className="hidden md:flex items-center gap-8 font-body text-sm font-medium">
             {navItem("Home", "/", "home")}
-            {navItem("Services", "/services", "services")}
-            {navItem("Areas", "/areas", "areas")}
+            {navItemWithDropdown("Services", "/services", "services", SERVICES, "/services")}
+            {navItemWithDropdown("Areas", "/areas", "areas", AREAS, "/areas")}
             {navItem("About", "/about", "about")}
             {navItem("FAQ", "/faq", "faq")}
             {navItem("Contact", "/contact", "contact")}
