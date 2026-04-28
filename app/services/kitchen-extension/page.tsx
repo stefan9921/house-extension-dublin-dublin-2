@@ -1,17 +1,84 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  jsonLd,
+  serviceSchema,
+} from "@/lib/schema";
+import { OG_IMAGES, SITE_URL } from "@/lib/site";
+
+const url = "/services/kitchen-extension";
 
 export const metadata: Metadata = {
-  title:
-    "Kitchen Extensions Dublin | Open-Plan Kitchen Extension Builders",
+  title: "Kitchen Extensions Dublin | Open-Plan Kitchen Extension Builders",
   description:
     "Open-plan kitchen extensions across Dublin and Ireland. Modern, single-storey, side return and rear extensions. Fixed quotes, full project management. Call +353 1 230 8892.",
-  alternates: { canonical: "/services/kitchen-extension" },
+  alternates: { canonical: url },
+  openGraph: {
+    title: "Kitchen Extensions Dublin | House Extension Dublin",
+    description:
+      "Open-plan kitchen extensions across Dublin and Ireland. Fixed-price, fully insured.",
+    url: `${SITE_URL}${url}`,
+    images: OG_IMAGES,
+  },
 };
 
+const faqs = [
+  {
+    q: "How much for a kitchen extension in Ireland?",
+    a: "A typical 30-40 sqm kitchen extension in Ireland costs EUR 80,000 to EUR 130,000 turnkey, including kitchen units, flooring and decoration. Smaller side-return extensions start around EUR 55,000.",
+  },
+  {
+    q: "How long does a rear extension take?",
+    a: "Most rear extensions in Dublin take 12 to 16 weeks from groundworks to handover. Smaller 15-20 sqm builds finish in 10 weeks; complex steel-frame or glass-roof extensions can run to 18 weeks.",
+  },
+  {
+    q: "How much does it cost to do a rear extension?",
+    a: "Budget EUR 2,400 to EUR 3,200 per square metre for a finished rear extension in Dublin. Glass-heavy designs sit closer to EUR 3,500 per sqm. Our fixed-price quote covers everything from groundworks to paint.",
+  },
+  {
+    q: "How much rear extension is allowed?",
+    a: "You can extend up to 40 sqm to the rear under exempted development - subject to height (4m flat / 5m pitched), boundary distances and existing extensions. Our team confirms exemption in writing before any tools come on site.",
+  },
+];
+
 export default function KitchenExtensionPage() {
+  const schemaScripts = (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(
+          serviceSchema({
+            name: "Kitchen Extensions",
+            description:
+              "Bespoke open-plan kitchen extensions in Dublin - single-storey, side-return, glass-roof and bi-fold designs. Fixed-price, fully insured.",
+            url,
+            slug: "kitchen-extension",
+          }),
+        )}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(faqSchema(faqs))}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(
+          breadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Services", url: "/services" },
+            { name: "Kitchen Extensions", url },
+          ]),
+        )}
+      />
+    </>
+  );
+
   return (
     <ServicePageLayout
+      schemaScripts={schemaScripts}
       title="Kitchen Extensions in Dublin"
       breadcrumb="Kitchen Extensions"
       heroImage="https://lh3.googleusercontent.com/aida-public/AB6AXuCdWxfgXyHK4nA1XSesdETvUTdr0n7SnE1jz9ZhVNQ9dYhdFyVq7FAMzJ-_MwW6-1X3lOrOhg1L2B8QnQW3E2gGmdY6SQELbsZ_jSj2tKtAHp8E8S6H51DLwX7tnNkemnmEFIMkRvgBU9noAxkF8fR-T2esdxbTzv3mu_F-Ep-3ziqwdl_B6fxyM13JaPe324Wnji2QwJsFodoKPH2E_4CK7gUroCfhtMv8qgMq2vkdnJV9b_88n73VPmIIYGEvqElqPEl97bo20hU"
@@ -35,6 +102,31 @@ export default function KitchenExtensionPage() {
             extensions into existing layouts. Most of our kitchen with
             extension builds combine a rear or side-return extension with a
             full open-plan kitchen, dining and living reconfiguration.
+          </p>
+          <p>
+            Looking at the broader picture? See our{" "}
+            <Link href="/services" className="text-primary font-semibold">
+              full services menu
+            </Link>
+            , read{" "}
+            <Link
+              href="/services/attic-conversion"
+              className="text-primary font-semibold"
+            >
+              attic conversions
+            </Link>
+            ,{" "}
+            <Link
+              href="/services/home-renovations"
+              className="text-primary font-semibold"
+            >
+              home renovations
+            </Link>
+            , or check our coverage in{" "}
+            <Link href="/areas/drogheda" className="text-primary font-semibold">
+              Drogheda &amp; Co. Louth
+            </Link>
+            .
           </p>
         </>
       }
@@ -119,28 +211,25 @@ export default function KitchenExtensionPage() {
                 (40 sqm full open-plan). We hand back a fully fitted kitchen,
                 decorated and snag-free.
               </p>
+              <p>
+                See more cost answers on our{" "}
+                <Link href="/faq" className="text-primary font-semibold">
+                  FAQ page
+                </Link>{" "}
+                or call our Dublin 2 office on{" "}
+                <a
+                  href="tel:+35312308892"
+                  className="text-primary font-semibold"
+                >
+                  +353 1 230 8892
+                </a>
+                .
+              </p>
             </>
           ),
         },
       ]}
-      faqs={[
-        {
-          q: "How much for a kitchen extension in Ireland?",
-          a: "A typical 30-40 sqm kitchen extension in Ireland costs EUR 80,000 to EUR 130,000 turnkey, including kitchen units, flooring and decoration. Smaller side-return extensions start around EUR 55,000.",
-        },
-        {
-          q: "How long does a rear extension take?",
-          a: "Most rear extensions in Dublin take 12 to 16 weeks from groundworks to handover. Smaller 15-20 sqm builds finish in 10 weeks; complex steel-frame or glass-roof extensions can run to 18 weeks.",
-        },
-        {
-          q: "How much does it cost to do a rear extension?",
-          a: "Budget EUR 2,400 to EUR 3,200 per square metre for a finished rear extension in Dublin. Glass-heavy designs sit closer to EUR 3,500 per sqm. Our fixed-price quote covers everything from groundworks to paint.",
-        },
-        {
-          q: "How much rear extension is allowed?",
-          a: "You can extend up to 40 sqm to the rear under exempted development - subject to height (4m flat / 5m pitched), boundary distances and existing extensions. Our team confirms exemption in writing before any tools come on site.",
-        },
-      ]}
+      faqs={faqs}
     />
   );
 }

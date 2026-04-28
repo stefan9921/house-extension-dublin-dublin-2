@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Material Symbols Outlined */
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+/* Material Symbols Outlined - injected client-side via components/IconFontLoader.tsx */
 
 html, body {
   background-color: #fcf9f8;

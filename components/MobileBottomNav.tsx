@@ -13,14 +13,14 @@ export default function MobileBottomNav() {
         <span className="text-[10px] font-medium">Home</span>
       </Link>
       <Link
-        href="/services/kitchen-extension"
+        href="/services"
         className="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors"
       >
         <span className="material-symbols-outlined">architecture</span>
         <span className="text-[10px] font-medium">Services</span>
       </Link>
       <Link
-        href="/areas/drogheda"
+        href="/areas"
         className="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors"
       >
         <span className="material-symbols-outlined">photo_library</span>

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { SITE_URL, BUSINESS, OG_IMAGE } from "@/lib/site";
+import { jsonLd, localBusinessSchema, websiteSchema } from "@/lib/schema";
+import IconFontLoader from "@/components/IconFontLoader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,14 +19,55 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+const defaultTitle =
+  "House Extension Dublin | Kitchen, Attic & Home Extensions Ireland";
+const defaultDescription =
+  "House Extension Dublin builds kitchen extensions, attic conversions and home renovations across Dublin and Ireland. Free quotes, fixed prices, fully insured. Call +353 1 230 8892.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://house-extension-dublin-dublin-2.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "House Extension Dublin | Kitchen, Attic & Home Extensions Ireland",
+    default: defaultTitle,
     template: "%s | House Extension Dublin",
   },
-  description:
-    "House Extension Dublin builds kitchen extensions, attic conversions and home renovations across Dublin and Ireland. Free quotes, fixed prices, fully insured. Call +353 1 230 8892.",
+  description: defaultDescription,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_IE",
+    url: SITE_URL,
+    siteName: BUSINESS.name,
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [
+      {
+        url: OG_IMAGE.url,
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        alt: OG_IMAGE.alt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [OG_IMAGE.url],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -31,13 +75,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`light ${inter.variable} ${jakarta.variable}`}>
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body className="bg-surface text-on-surface flex flex-col min-h-screen">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(localBusinessSchema())}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(websiteSchema())}
+        />
+        <IconFontLoader />
         {children}
       </body>
     </html>

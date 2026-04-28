@@ -45,8 +45,8 @@ export default function Header({ active = "home" }: HeaderProps) {
           </div>
           <nav className="hidden md:flex items-center gap-8 font-body text-sm font-medium">
             {navItem("Home", "/", "home")}
-            {navItem("Services", "/services/kitchen-extension", "services")}
-            {navItem("Areas", "/areas/drogheda", "areas")}
+            {navItem("Services", "/services", "services")}
+            {navItem("Areas", "/areas", "areas")}
             {navItem("About", "/about", "about")}
             {navItem("FAQ", "/faq", "faq")}
             {navItem("Contact", "/contact", "contact")}

@@ -2,19 +2,36 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import { breadcrumbSchema, jsonLd } from "@/lib/schema";
+import { OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact House Extension Dublin | Free Quote & Site Survey",
   description:
     "Get a free site survey and fixed-price quote for your house extension in Dublin. Call +353 1 230 8892, email info@houseextensiondublin.ie or use the form.",
   alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact House Extension Dublin",
+    description:
+      "Free site survey and fixed-price quote for your Dublin house extension.",
+    url: `${SITE_URL}/contact`,
+    images: OG_IMAGES,
+  },
 };
 
 export default function ContactPage() {
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Contact", url: "/contact" },
+  ]);
   return (
     <>
       <Header active="contact" />
       <main className="pt-20 flex-grow">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(breadcrumbs)}
+        />
         {/* Hero */}
         <section className="bg-secondary-container py-24">
           <div className="max-w-7xl mx-auto px-8 max-w-3xl">

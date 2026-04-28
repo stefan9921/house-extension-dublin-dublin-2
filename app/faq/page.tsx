@@ -3,12 +3,21 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import { breadcrumbSchema, faqSchema, jsonLd } from "@/lib/schema";
+import { OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "House Extension FAQ Dublin | Costs, Planning & Timelines",
   description:
     "Answers to the most common questions about house extensions in Dublin and Ireland - costs, planning permission, timelines, sizes and more.",
   alternates: { canonical: "/faq" },
+  openGraph: {
+    title: "House Extension FAQ Dublin",
+    description:
+      "Costs, planning permission, timelines and sizes - 25 answers for Dublin homeowners.",
+    url: `${SITE_URL}/faq`,
+    images: OG_IMAGES,
+  },
 };
 
 const faqGroups: { title: string; faqs: { q: string; a: string }[] }[] = [
@@ -130,18 +139,11 @@ const faqGroups: { title: string; faqs: { q: string; a: string }[] }[] = [
 ];
 
 export default function FaqPage() {
-  // Build FAQ schema (for SEO)
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqGroups.flatMap((g) =>
-      g.faqs.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    ),
-  };
+  const allFaqs = faqGroups.flatMap((g) => g.faqs);
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "FAQ", url: "/faq" },
+  ]);
 
   return (
     <>
@@ -149,7 +151,11 @@ export default function FaqPage() {
       <main className="pt-20 flex-grow">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={jsonLd(faqSchema(allFaqs))}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(breadcrumbs)}
         />
         {/* Hero */}
         <section className="bg-secondary-container py-24">

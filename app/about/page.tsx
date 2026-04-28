@@ -3,19 +3,36 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import { breadcrumbSchema, jsonLd } from "@/lib/schema";
+import { OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About House Extension Dublin | Trusted Extension Builders",
   description:
     "Meet the team behind House Extension Dublin - experienced, insured house extension builders serving Dublin 2 and all of Ireland. Free consultations.",
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About House Extension Dublin",
+    description:
+      "Trusted extension builders Dublin since 2010. Directly-employed team, in-house design.",
+    url: `${SITE_URL}/about`,
+    images: OG_IMAGES,
+  },
 };
 
 export default function AboutPage() {
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about" },
+  ]);
   return (
     <>
       <Header active="about" />
       <main className="pt-20 flex-grow">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(breadcrumbs)}
+        />
         {/* Hero */}
         <section className="bg-secondary-container py-24">
           <div className="max-w-7xl mx-auto px-8">

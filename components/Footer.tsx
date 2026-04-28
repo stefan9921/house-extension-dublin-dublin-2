@@ -51,6 +51,12 @@ export default function Footer() {
           </h4>
           <Link
             className="text-slate-400 hover:text-[#e1e2b8] transition-colors duration-200"
+            href="/services"
+          >
+            All Services
+          </Link>
+          <Link
+            className="text-slate-400 hover:text-[#e1e2b8] transition-colors duration-200"
             href="/services/kitchen-extension"
           >
             Kitchen Extensions
@@ -74,6 +80,12 @@ export default function Footer() {
           <h4 className="text-white font-bold uppercase tracking-wider mb-2">
             Areas Served
           </h4>
+          <Link
+            className="text-slate-400 hover:text-[#e1e2b8] transition-colors duration-200"
+            href="/areas"
+          >
+            All Areas
+          </Link>
           <div className="grid grid-cols-2 gap-4">
             <span className="text-slate-400">Dublin 2</span>
             <span className="text-slate-400">Dublin 4</span>

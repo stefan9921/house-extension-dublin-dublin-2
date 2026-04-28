@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import { breadcrumbSchema, faqSchema, jsonLd } from "@/lib/schema";
+import { OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title:
@@ -10,7 +12,37 @@ export const metadata: Metadata = {
   description:
     "House Extension Dublin builds kitchen extensions, attic conversions and home renovations across Dublin and Ireland. Free quotes, fixed prices, fully insured. Call +353 1 230 8892.",
   alternates: { canonical: "/" },
+  openGraph: {
+    title: "House Extension Dublin | Kitchen, Attic & Home Extensions Ireland",
+    description:
+      "Award-winning house extensions across Dublin and Ireland. Fixed-price, fully insured.",
+    url: SITE_URL,
+    images: OG_IMAGES,
+  },
 };
+
+const homeFaqs = [
+  {
+    q: "How much do extensions cost in Dublin?",
+    a: "A standard single-storey kitchen extension in Dublin typically ranges from EUR 2,400 to EUR 3,200 per square metre depending on finish level and groundworks. We give a fixed price after the free site survey - no surprises mid-build.",
+  },
+  {
+    q: "How much does a small extension cost in Ireland?",
+    a: "A small 15-20 sqm rear extension in Ireland generally costs between EUR 50,000 and EUR 75,000 fully fitted. Glass-roof or steel-frame designs sit at the higher end of that range.",
+  },
+  {
+    q: "How much for a kitchen extension in Ireland?",
+    a: "A typical 30-40 sqm kitchen extension in Ireland costs EUR 80,000 to EUR 130,000 turnkey, including kitchen units, flooring and decoration. Smaller side-return extensions start around EUR 55,000.",
+  },
+  {
+    q: "How much can I extend my house without planning permission in Ireland?",
+    a: "Under exempted development you can typically extend up to 40 sqm to the rear of a house in Ireland without planning permission - subject to height, boundary and existing-extension rules. We confirm exemption in writing for every project.",
+  },
+  {
+    q: "How much rear extension is allowed?",
+    a: "Most semi-detached and terraced houses can extend 40 sqm to the rear under exempted development, with a single-storey height cap of 4 metres (flat roof) or 5 metres (pitched). Two-storey rear extensions normally need full planning.",
+  },
+];
 
 const heroImage =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCzVhGi1fubwcbdj7Xn2THN9Jzy2bJE6HLhtT3GBdcY2Swq2G9Rh4OYK8YfWnjRoYauYVjca0x-owOseBPpl61k2osFM5Asz_DIKBgt-w0adZcfEl_W9SMGsKJ-QZvNaTaSF_EkopxwsCr3YR3lfpeWFzEyzErpsdemHIChG1kKgTaR2rvjYAiFvFYAtpoeWvGnmr8P_85iqcjGfQnfAe46IjbRPoi92hUYo0mJhR3Xyths2n72eoP2do0mD0DG-uMd-2Rz-YarMpg";
@@ -27,6 +59,16 @@ export default function HomePage() {
     <>
       <Header active="home" />
       <main className="flex-grow pt-0 md:pt-20">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(
+            breadcrumbSchema([{ name: "Home", url: "/" }]),
+          )}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(faqSchema(homeFaqs))}
+        />
         {/* 1. HERO */}
         <section className="relative h-[819px] min-h-[600px] max-h-[720px] flex items-center justify-center overflow-hidden bg-inverse-surface">
           <div className="absolute inset-0 w-full h-full">
@@ -179,6 +221,48 @@ export default function HomePage() {
                 </div>
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* 3.5 EDITORIAL INTRO - Dublin head-term cluster */}
+        <section className="bg-surface-container-low py-20">
+          <div className="max-w-3xl mx-auto px-6 md:px-8 prose prose-lg text-on-surface-variant font-body leading-relaxed">
+            <h2 className="font-display font-bold text-3xl md:text-4xl text-on-surface tracking-tight mb-6">
+              Trusted house extension Dublin builders since 2010
+            </h2>
+            <p>
+              House Extension Dublin has been delivering kitchen, attic and
+              full home extensions across Dublin and Ireland for over fifteen
+              years. From our Dublin 2 head office in Grand Canal Dock we
+              design, project-manage and build every house extension with our
+              own directly-employed team &mdash; no subcontracted hand-offs and
+              no second-mobilisation surprises mid-project.
+            </p>
+            <p>
+              Whether you&apos;re researching home extensions Dublin pricing,
+              looking for experienced extension builders Dublin homeowners
+              trust, or comparing extension cost Dublin quotes against the
+              market, we make the process easy: a free site survey, an
+              architect-stamped design, and a single fixed-price contract that
+              covers groundworks, structure, finishes and a 12-month
+              workmanship guarantee.
+            </p>
+            <p>
+              Most house extensions Dublin homes need fall into one of three
+              categories &mdash; a kitchen extension, an attic conversion or a
+              whole-house renovation paired with an extension. Every variant we
+              build is mapped into the closest of those three so you get the
+              specialist Dublin team for the work, not a generalist crew. Read
+              more on our{" "}
+              <Link href="/services" className="text-primary font-semibold">
+                services hub
+              </Link>{" "}
+              or check coverage for{" "}
+              <Link href="/areas" className="text-primary font-semibold">
+                areas we serve
+              </Link>
+              .
+            </p>
           </div>
         </section>
 
@@ -355,28 +439,7 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="lg:col-span-8 space-y-4">
-              {[
-                {
-                  q: "How much do extensions cost in Dublin?",
-                  a: "A standard single-storey kitchen extension in Dublin typically ranges from EUR 2,400 to EUR 3,200 per square metre depending on finish level and groundworks. We give a fixed price after the free site survey - no surprises mid-build.",
-                },
-                {
-                  q: "How much does a small extension cost in Ireland?",
-                  a: "A small 15-20 sqm rear extension in Ireland generally costs between EUR 50,000 and EUR 75,000 fully fitted. Glass-roof or steel-frame designs sit at the higher end of that range.",
-                },
-                {
-                  q: "How much for a kitchen extension in Ireland?",
-                  a: "A typical 30-40 sqm kitchen extension in Ireland costs EUR 80,000 to EUR 130,000 turnkey, including kitchen units, flooring and decoration. Smaller side-return extensions start around EUR 55,000.",
-                },
-                {
-                  q: "How much can I extend my house without planning permission in Ireland?",
-                  a: "Under exempted development you can typically extend up to 40 sqm to the rear of a house in Ireland without planning permission - subject to height, boundary and existing-extension rules. We confirm exemption in writing for every project.",
-                },
-                {
-                  q: "How much rear extension is allowed?",
-                  a: "Most semi-detached and terraced houses can extend 40 sqm to the rear under exempted development, with a single-storey height cap of 4 metres (flat roof) or 5 metres (pitched). Two-storey rear extensions normally need full planning.",
-                },
-              ].map((f) => (
+              {homeFaqs.map((f) => (
                 <details
                   key={f.q}
                   className="group bg-surface-container-lowest rounded-xl border border-surface-variant/40 ambient-shadow overflow-hidden"

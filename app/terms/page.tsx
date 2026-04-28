@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import { breadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -14,6 +15,15 @@ export default function TermsPage() {
   return (
     <>
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(
+          breadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Terms of Service", url: "/terms" },
+          ]),
+        )}
+      />
       <main className="pt-20 flex-grow max-w-3xl mx-auto px-8 py-24 prose prose-lg text-on-surface-variant font-body leading-relaxed">
         <h1 className="font-display font-bold text-5xl text-on-surface mb-8">
           Terms of Service

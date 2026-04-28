@@ -16,6 +16,7 @@ export type ServicePageProps = {
     body: React.ReactNode;
   }[];
   faqs: { q: string; a: string }[];
+  schemaScripts?: React.ReactNode;
 };
 
 export default function ServicePageLayout(props: ServicePageProps) {
@@ -23,6 +24,7 @@ export default function ServicePageLayout(props: ServicePageProps) {
     <>
       <Header active="services" />
       <main className="flex-grow pt-0 md:pt-20">
+        {props.schemaScripts}
         {/* HERO */}
         <header className="relative h-[480px] w-full bg-surface-container-low flex items-end pb-16 overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -40,7 +42,9 @@ export default function ServicePageLayout(props: ServicePageProps) {
                 Home
               </Link>
               <span className="mx-2">/</span>
-              <span className="hover:text-on-primary">Services</span>
+              <Link href="/services" className="hover:text-on-primary">
+                Services
+              </Link>
               <span className="mx-2">/</span>
               <span className="text-on-primary font-medium">
                 {props.breadcrumb}

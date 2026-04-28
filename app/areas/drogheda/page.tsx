@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import { breadcrumbSchema, jsonLd } from "@/lib/schema";
+import { OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title:
@@ -10,6 +12,13 @@ export const metadata: Metadata = {
   description:
     "House Extension Dublin serves Drogheda and Co. Louth - kitchen extensions, attic conversions and full home renovations. Free site survey, fixed price. Call +353 1 230 8892.",
   alternates: { canonical: "/areas/drogheda" },
+  openGraph: {
+    title: "House Extensions Drogheda | House Extension Dublin",
+    description:
+      "Kitchen extensions, attic conversions and renovations across Drogheda and Co. Louth. Just 50km north of our Dublin 2 office.",
+    url: `${SITE_URL}/areas/drogheda`,
+    images: OG_IMAGES,
+  },
 };
 
 const droghedaHero =
@@ -22,10 +31,35 @@ const renovImg =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuDLrm84ErCQ_MTG5V4l_B8Uuk9r-u0Myfy6362taybKpByDko432ZFsV_taDA_o7w6oyRRLpnPW1npyO-E9DuflzvXSSoS-LqfMeJ4IleSqcgLLUD2AIhTmL722qe7NiwMT76LYf-6JpWHQvDzMyRkl1Nh1L8-4PRT5vDNpDkf9EWJl0z8l2TyujyFuSMpSoArXtlj6j87KMg0rhTy1axAPmuBUdbRi8qTHAFBVHirr44nlFozR6ev_EKlDwn6a5bnd9R30PU5p3bQ";
 
 export default function DroghedaPage() {
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Areas", url: "/areas" },
+    { name: "Drogheda", url: "/areas/drogheda" },
+  ]);
+  const placeSchema = {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    name: "Drogheda",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Drogheda",
+      addressRegion: "Co. Louth",
+      addressCountry: "IE",
+    },
+  };
+
   return (
     <>
       <Header active="areas" />
       <main className="pt-20 flex-grow">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(breadcrumbs)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(placeSchema)}
+        />
         {/* Hero */}
         <section className="relative w-full h-[600px] md:h-[700px] flex items-center justify-center bg-surface-dim overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -45,7 +79,9 @@ export default function DroghedaPage() {
               <span className="material-symbols-outlined text-xs">
                 chevron_right
               </span>
-              <span>Areas</span>
+              <Link href="/areas" className="hover:text-on-primary">
+                Areas
+              </Link>
               <span className="material-symbols-outlined text-xs">
                 chevron_right
               </span>
@@ -203,6 +239,98 @@ export default function DroghedaPage() {
                 </span>
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* Why Drogheda homeowners pick us */}
+        <section className="py-24 max-w-7xl mx-auto px-8 bg-surface-container-low">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-7 prose prose-lg text-on-surface-variant font-body leading-relaxed">
+              <h2 className="font-headline text-3xl font-bold text-on-surface mb-4">
+                Why Drogheda homeowners choose House Extension Dublin
+              </h2>
+              <p>
+                Drogheda is one of the fastest-growing commuter towns in
+                Ireland and the demand for high-quality house extensions
+                Drogheda contractors can deliver has surged. Most Drogheda
+                projects we run are kitchen extensions on 1990s and 2000s
+                semi-detached estates, attic conversions on older terrace
+                houses around the town centre, or full home renovations on
+                traditional cottages along the Boyne valley.
+              </p>
+              <p>
+                Pricing matches our central Dublin pricing &mdash; we don&apos;t
+                charge a travel premium for Drogheda or any town along the M1.
+                Our project manager covers the M1 corridor full-time, so
+                site-meeting availability is the same as it is in Dublin city.
+              </p>
+              <p>
+                For more on the specific build types we deliver in Drogheda,
+                jump to{" "}
+                <Link
+                  href="/services/kitchen-extension"
+                  className="text-primary font-semibold"
+                >
+                  kitchen extensions
+                </Link>
+                ,{" "}
+                <Link
+                  href="/services/attic-conversion"
+                  className="text-primary font-semibold"
+                >
+                  attic conversions
+                </Link>{" "}
+                or{" "}
+                <Link
+                  href="/services/home-renovations"
+                  className="text-primary font-semibold"
+                >
+                  home renovations
+                </Link>
+                . Or browse all{" "}
+                <Link href="/areas" className="text-primary font-semibold">
+                  areas we cover
+                </Link>{" "}
+                and{" "}
+                <Link href="/services" className="text-primary font-semibold">
+                  services menu
+                </Link>
+                .
+              </p>
+            </div>
+            <div className="lg:col-span-5">
+              <div className="bg-surface-container-lowest rounded-xl p-8 border border-surface-variant/40 ambient-shadow">
+                <h3 className="font-headline text-xl font-bold text-on-surface mb-4">
+                  Drogheda quick facts
+                </h3>
+                <ul className="space-y-3 text-on-surface-variant text-sm">
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary mt-0.5">
+                      schedule
+                    </span>
+                    <span>50 km / under 1 hour from our Dublin 2 office</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary mt-0.5">
+                      apartment
+                    </span>
+                    <span>Full coverage of Drogheda, Bettystown, Laytown &amp; surrounds</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary mt-0.5">
+                      gavel
+                    </span>
+                    <span>Familiar with Louth County Council planning &amp; Meath County Council on the south side of the Boyne</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary mt-0.5">
+                      price_check
+                    </span>
+                    <span>Same fixed-price contract, no travel premium</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
