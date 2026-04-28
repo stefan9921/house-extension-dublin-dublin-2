@@ -65,9 +65,8 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  // Icons are auto-discovered by Next.js App Router from /app/icon.svg and
+  // /app/apple-icon.svg.
 };
 
 export default function RootLayout({

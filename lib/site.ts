@@ -1,7 +1,12 @@
 // Shared site-wide constants. Single source of truth for routes, NAP and SEO defaults.
 
+// Production URL. No custom domain is attached yet, so default to the live
+// Vercel production alias. Override via NEXT_PUBLIC_SITE_URL once a custom
+// domain (e.g. houseextensiondublin.ie) is registered and pointed at the
+// project.
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://houseextensiondublin.ie";
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://house-extension-dublin-dublin-2.vercel.app";
 
 export const BUSINESS = {
   name: "House Extension Dublin",
