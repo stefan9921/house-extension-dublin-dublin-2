@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
+
+const CANONICAL_URL = "https://www.houseextensiondublin.ie";
 
 export default function robots(): MetadataRoute.Robots {
-  const host = SITE_URL.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const host = CANONICAL_URL.replace(/^https?:\/\//, "").replace(/\/$/, "");
   return {
     rules: [
       {
@@ -11,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: `${CANONICAL_URL}/sitemap.xml`,
     host,
   };
 }

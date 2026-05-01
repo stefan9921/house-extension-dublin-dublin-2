@@ -5,6 +5,10 @@ import { SITE_URL, BUSINESS, OG_IMAGE } from "@/lib/site";
 import { jsonLd, localBusinessSchema, websiteSchema } from "@/lib/schema";
 import IconFontLoader from "@/components/IconFontLoader";
 
+// Production domain used for canonical link resolution (alternates.canonical
+// in every page metadata is relative and resolves against metadataBase).
+const CANONICAL_URL = "https://www.houseextensiondublin.ie";
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -25,7 +29,7 @@ const defaultDescription =
   "House Extension Dublin builds kitchen extensions, attic conversions and home renovations across Dublin and Ireland. Free quotes, fixed prices, fully insured. Call +353 1 230 8892.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(CANONICAL_URL),
   title: {
     default: defaultTitle,
     template: "%s | House Extension Dublin",
