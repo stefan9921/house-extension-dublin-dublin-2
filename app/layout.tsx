@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { SITE_URL, BUSINESS, OG_IMAGE } from "@/lib/site";
 import { jsonLd, localBusinessSchema, websiteSchema } from "@/lib/schema";
@@ -79,6 +80,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`light ${inter.variable} ${jakarta.variable}`}>
       <body className="bg-surface text-on-surface flex flex-col min-h-screen">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-M2JPFY2KBH"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-M2JPFY2KBH');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLd(localBusinessSchema())}
